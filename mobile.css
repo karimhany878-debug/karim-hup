@@ -1,0 +1,87 @@
+/* mobile.css - responsive hotfixes for Karim Games (Android/iOS) */
+:root{
+  --vh: 1vh;
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --safe-left: env(safe-area-inset-left, 0px);
+  --safe-right: env(safe-area-inset-right, 0px);
+}
+
+/* Reduce 100vh issues (mobile address bar) */
+@media (max-width: 900px){
+  html, body{ min-height: calc(var(--vh) * 100); }
+}
+
+/* ===== CHESS ===== */
+@media (max-width: 900px){
+  header.top{
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    padding-top: calc(10px + var(--safe-top));
+  }
+  header.top{
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  header.top .mid{ flex: 1 1 160px; text-align:center; }
+  header.top .right{
+    width: 100%;
+    display:flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+  }
+  header.top .right select,
+  header.top .right button{
+    flex: 1 1 46%;
+    min-width: 150px;
+  }
+
+  .stage{ padding: 10px 10px 14px; }
+  .boardWrap{
+    height: auto !important;
+    min-height: unset !important;
+    padding: 8px !important;
+  }
+  /* Keep board square and fully visible */
+  #cv{
+    width: min(94vw, 560px) !important;
+    height: auto !important;
+    aspect-ratio: 1 / 1;
+    max-height: min(94vw, calc(var(--vh) * 80));
+  }
+  .side{ padding: 10px !important; }
+}
+@media (max-width: 420px){
+  header.top .right select,
+  header.top .right button{ flex: 1 1 100%; min-width: 0; }
+}
+
+/* ===== READ / HUB / PLAY grids ===== */
+@media (max-width: 520px){
+  .grid{ grid-template-columns: 1fr !important; }
+  .search input{ min-width: 0 !important; }
+  .card{ padding: 14px !important; }
+}
+
+/* ===== STATE 2P ===== */
+@media (max-width: 900px){
+  .topMini{
+    top: calc(8px + var(--safe-top)) !important;
+    left: calc(8px + var(--safe-left)) !important;
+    right: calc(8px + var(--safe-right)) !important;
+  }
+  .bottomHud{
+    left: calc(8px + var(--safe-left)) !important;
+    right: calc(8px + var(--safe-right)) !important;
+    bottom: calc(8px + var(--safe-bottom)) !important;
+    gap: 8px !important;
+  }
+  .bottomHud .panel,
+  .bottomHud .center{ padding: 10px !important; }
+
+  /* Make selects/buttons finger-friendly */
+  select, button{ min-height: 44px; }
+  .tapHelp{ font-size: 12px !important; line-height: 1.35 !important; }
+}
