@@ -1,41 +1,174 @@
-﻿<!doctype html>
-<html lang="en">
+<!doctype html>
+<html lang="ar" dir="rtl">
 <head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#0b1220" />
   <title>Karim Games</title>
-    <link rel="stylesheet" href="mobile.css"/>
-<link rel="stylesheet" href="app.css"/>
-  <link rel="stylesheet" href="start.css"/>
+
+  <!-- Optional PWA files (won't break if missing) -->
+  <link rel="manifest" href="manifest.webmanifest" />
+
+  <!-- Optional existing styles (won't break if missing, but best if present) -->
+  <link rel="stylesheet" href="app.css" />
+  <link rel="stylesheet" href="start.css" />
+
+  <style>
+    :root{
+      --bg:#0b1220; --card: rgba(255,255,255,.06);
+      --bd: rgba(255,255,255,.12); --tx: rgba(245,250,255,.92);
+      --mut: rgba(245,250,255,.62); --glow: rgba(120,255,170,.25);
+    }
+    html,body{height:100%}
+    body{
+      margin:0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial;
+      background: radial-gradient(900px 450px at 20% 10%, rgba(120,255,170,.14), transparent 55%),
+                  radial-gradient(900px 450px at 90% 0%, rgba(150,180,255,.12), transparent 55%),
+                  var(--bg);
+      color: var(--tx);
+      overflow-x:hidden;
+    }
+    .wrap{max-width:980px; margin:0 auto; padding:16px}
+    .hero{
+      border:1px solid var(--bd);
+      background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.04));
+      border-radius:22px;
+      padding:16px;
+      box-shadow: 0 10px 35px rgba(0,0,0,.35);
+      backdrop-filter: blur(10px);
+    }
+    .brand{font-weight:1000; letter-spacing:.8px; font-size:22px}
+    .sub{margin-top:6px; color:var(--mut); line-height:1.5; font-weight:700}
+    .row{display:flex; gap:10px; flex-wrap:wrap; margin-top:12px}
+    .btn{
+      cursor:pointer; text-decoration:none; color:var(--tx);
+      border:1px solid var(--bd);
+      background: rgba(255,255,255,.06);
+      padding:10px 12px; border-radius:14px;
+      font-weight:900;
+      display:inline-flex; align-items:center; gap:8px;
+      min-height:44px;
+    }
+    .btn.primary{
+      border-color: rgba(120,255,170,.35);
+      box-shadow: 0 0 0 3px rgba(120,255,170,.08);
+      background: linear-gradient(180deg, rgba(120,255,170,.12), rgba(255,255,255,.05));
+    }
+    .grid{
+      margin-top:14px;
+      display:grid;
+      grid-template-columns: repeat(3, minmax(0,1fr));
+      gap:12px;
+    }
+    @media (max-width: 900px){ .grid{grid-template-columns: repeat(2, minmax(0,1fr));} }
+    @media (max-width: 520px){ .grid{grid-template-columns: 1fr;} .wrap{padding:12px} }
+    .card{
+      border:1px solid var(--bd);
+      background: var(--card);
+      border-radius:20px;
+      padding:14px;
+      text-decoration:none;
+      color:var(--tx);
+      box-shadow: 0 10px 30px rgba(0,0,0,.28);
+    }
+    .card:hover{ transform: translateY(-1px); transition: .12s ease; }
+    .h{font-weight:1000; font-size:18px}
+    .p{margin-top:8px; color:var(--mut); line-height:1.55; font-weight:700}
+    .foot{margin-top:14px; color:var(--mut); font-size:12px; line-height:1.6}
+    .ok{
+      display:inline-block; padding:6px 10px; border-radius:999px;
+      border:1px solid rgba(120,255,170,.35);
+      background: rgba(120,255,170,.08);
+      color: rgba(220,255,235,.95);
+      font-weight:900; font-size:12px;
+    }
+    .warn{
+      display:inline-block; padding:6px 10px; border-radius:999px;
+      border:1px solid rgba(255,180,80,.35);
+      background: rgba(255,180,80,.08);
+      color: rgba(255,240,220,.92);
+      font-weight:900; font-size:12px;
+    }
+  </style>
+
+  <script>
+    // 1) If start.html exists -> redirect to it (keeps your old start screen)
+    (async () => {
+      try {
+        const r = await fetch("./start.html", { method: "HEAD", cache: "no-store" });
+        if (r.ok) location.replace("./start.html");
+      } catch(e) {
+        // ignore (offline / no start.html)
+      }
+    })();
+
+    // 2) Register Service Worker if file exists (optional)
+    (async () => {
+      try {
+        if (!("serviceWorker" in navigator)) return;
+        // try to detect sw.js exists (HEAD). If fails, skip silently.
+        const r = await fetch("./sw.js", { method: "HEAD", cache: "no-store" });
+        if (r.ok) navigator.serviceWorker.register("./sw.js");
+      } catch(e) {}
+    })();
+  </script>
 </head>
+
 <body>
   <div class="wrap">
-    <header class="glass hero">
+    <header class="hero">
       <div class="brand">KARIM GAMES</div>
-      <div class="sub">Start  Offline  Local</div>
+      <div class="sub">نسخة الويب الرسمية — شغّالة على GitHub Pages، وممكن تتحول “كتطبيق” (PWA) وتشتغل أوفلاين بعد أول فتح.</div>
+
+      <div class="row">
+        <a class="btn primary" href="./play.html">Play</a>
+        <a class="btn" href="./read.html">Read</a>
+        <a class="btn" href="./settings.html">Settings</a>
+        <span class="ok">Mobile-ready (مع Pages)</span>
+      </div>
     </header>
 
-    <main class="grid">
-      <a class="card primary" href="play.html">
-        <div class="h">PLAY</div>
-        <div class="p">افتح مجمع الألعاب</div>
+    <main class="grid" id="grid">
+      <a class="card" href="./state.html">
+        <div class="h">STATE 2P</div>
+        <div class="p">حرب الولايات — ضد صاحبك أو بوت.</div>
       </a>
 
-      <a class="card" href="read.html">
+      <a class="card" href="./chess.html">
+        <div class="h">CHESS</div>
+        <div class="p">VS Friend / VS Bot — أقوى.</div>
+      </a>
+
+      <a class="card" href="./xo.html">
+        <div class="h">XO</div>
+        <div class="p">سريع وبسيط — 2P + Bot.</div>
+      </a>
+
+      <a class="card" href="./chemistry.html">
+        <div class="h">Chemistry</div>
+        <div class="p">معادلات — تدريب تدريجي.</div>
+      </a>
+
+      <a class="card" href="./read.html">
         <div class="h">READ</div>
-        <div class="p">للمسلمين: قرآن  أذكار  سنن  أحاديث (Offline)</div>
+        <div class="p">أذكار / قرآن / أدعية — حسب الوقت + بحث.</div>
       </a>
 
-      <a class="card" href="settings.html">
-        <div class="h">SETTINGS</div>
-        <div class="p">الصوت  تأخير البوت  وقت الـ Break  تفضيلات</div>
+      <a class="card" href="./play.html">
+        <div class="h">Hub</div>
+        <div class="p">صفحة التجميع واللعب.</div>
       </a>
     </main>
 
-    <footer class="foot">افتح <b>index.html</b> كبداية دائما.</footer>
+    <div class="foot">
+      <div class="warn">مهم:</div>
+      <div>
+        - ده ملف آمن: بيضيف “index.html” فقط.<br/>
+        - لو عايز “Full Offline” لازم نضيف ملفات PWA: <b>sw.js + manifest</b> (هديك كودهم لما تقول).<br/>
+        - تشغيل GitHub Pages هو اللي بيحل مشاكل الموبايل اللي كانت بتظهر مع file://.
+      </div>
+    </div>
   </div>
-  <script src="hub_nav.js"></script>
-
+</body>
 </html>
-
 
