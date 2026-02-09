@@ -82,3 +82,5 @@ body.playing .hudBtn{ display: block; }
   .brand{ font-size: 15px; }
   .miniBtns button{ padding: 8px 10px; border-radius: 14px; }
 }
+canvas, #game { touch-action: none; }
+body.playing { overscroll-behavior: none; }
