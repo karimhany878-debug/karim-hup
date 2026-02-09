@@ -1,0 +1,84 @@
+/* Mobile Fit + Play Mode (hide HUD) + Safe Areas */
+:root{
+  --safeTop: env(safe-area-inset-top, 0px);
+  --safeBottom: env(safe-area-inset-bottom, 0px);
+}
+
+/* fix mobile viewport (JS sets --vh) */
+html, body{
+  height: 100%;
+  overflow: hidden;
+}
+
+body{
+  margin: 0;
+  padding-top: var(--safeTop);
+  padding-bottom: var(--safeBottom);
+}
+
+/* override old stage height calc for mobile browsers */
+.stage{
+  height: calc(var(--vh, 1vh) * 100 - 56px - 210px);
+  min-height: 0;
+}
+
+/* keep HUD scrollable on small screens */
+.bottomHud{
+  max-height: 42vh;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* ===== PLAY MODE ===== */
+body.playing .topMini,
+body.playing .bottomHud{
+  display: none !important;
+}
+
+body.playing .stage{
+  height: calc(var(--vh, 1vh) * 100);
+}
+
+/* Play button (shows when NOT playing) */
+.playBtn{
+  position: fixed;
+  left: 14px;
+  right: 14px;
+  bottom: calc(14px + var(--safeBottom));
+  z-index: 40;
+  padding: 14px 16px;
+  border-radius: 16px;
+  border: 1px solid rgba(255,255,255,.18);
+  background: rgba(10,16,28,.78);
+  color: rgba(255,255,255,.92);
+  font-weight: 800;
+  letter-spacing: .06em;
+  backdrop-filter: blur(10px);
+}
+
+body.playing .playBtn{ display: none; }
+
+/* HUD button (shows when playing) */
+.hudBtn{
+  position: fixed;
+  top: calc(10px + var(--safeTop));
+  left: 10px;
+  z-index: 50;
+  padding: 10px 12px;
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,.18);
+  background: rgba(10,16,28,.62);
+  color: rgba(255,255,255,.92);
+  font-weight: 800;
+  backdrop-filter: blur(10px);
+  display: none;
+}
+
+body.playing .hudBtn{ display: block; }
+
+/* make top bar tighter on mobile */
+@media (max-width: 520px){
+  .topMini{ padding: 10px 10px; }
+  .brand{ font-size: 15px; }
+  .miniBtns button{ padding: 8px 10px; border-radius: 14px; }
+}
