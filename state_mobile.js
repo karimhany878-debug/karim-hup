@@ -19,7 +19,26 @@
   if (hudBtn)  hudBtn.addEventListener("click",  () => setPlaying(false));
 
   // default: NOT playing (show UI first)
-  setPlaying(false);
+  function forceLayoutFix(){
+  // update vh again
+  document.documentElement.style.setProperty("--vh", (window.innerHeight * 0.01) + "px");
+  // force canvas resize handlers (game.js غالبًا مربوط على resize)
+  window.dispatchEvent(new Event("resize"));
+
+  // IMPORTANT: regenerate map once if it was created too small (2 nodes bug)
+  if (!window.__kg_new_once) {
+    // لو زر New عندك id مختلف عدّله هنا
+    const newBtn = document.getElementById("btnNew") || document.querySelector("[data-action='new'], .btnNew, #newBtn");
+    if (newBtn) newBtn.click();
+    window.__kg_new_once = true;
+  }
+}
+
+function setPlaying(on){
+  document.body.classList.toggle("playing", !!on);
+  try { window.scrollTo(0,0); } catch {}
+  setTimeout(forceLayoutFix, 60);
+}
 
   // ===== Two-finger quick multi-select =====
   // Idea: while you are dragging from a node (finger1), tap another OWN node (finger2)
