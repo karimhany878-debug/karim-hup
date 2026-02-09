@@ -12,6 +12,17 @@
   setVH();
   window.addEventListener("resize", setVH, {passive:true});
 })();
+</script>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+
+<script>
+(function () {
+  function setVH(){
+    document.documentElement.style.setProperty("--vh", (window.innerHeight * 0.01) + "px");
+  }
+  setVH();
+  window.addEventListener("resize", setVH, {passive:true});
+})();
                           </script>
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
   <title>State 2P Local (V2)</title>
